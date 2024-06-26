@@ -5,7 +5,7 @@ import GoalsList from '@components/GoalList/GoalList';
 import AccountContext from '@context/accountContext';
 
 export default function SavingsGoalsPage() {
-  const { financeGoals, addFinanceGoal } = useContext(AccountContext);
+  const { financeGoals } = useContext(AccountContext);
 
   return (
     <CContainer className='goal-container'  style={{ marginTop:'14%'}} >

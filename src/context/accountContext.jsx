@@ -197,6 +197,20 @@ export const AccountProvider = ({ children }) => {
     }
   }
 
+  const onDeleteGoal = async (id) => {
+    try {
+      console.log(id);
+      const response = await api.delete(`/api/goals/${id}`);
+      if (response.status === 204) {
+        setFinanceGoals(prev => prev.filter(goal => goal.ID_goal !== id));
+        return true;
+      }
+    } catch (error) {
+      console.error("Failed to delete goal", error);
+      return false;
+    }
+  }
+
   return (
     <AccountContext.Provider value={{
       accounts,
@@ -214,6 +228,7 @@ export const AccountProvider = ({ children }) => {
       addAccount,
       handleSignUp,
       deleteAccount,
+      onDeleteGoal,
     }}>
       {children}
     </AccountContext.Provider>
