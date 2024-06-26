@@ -1,0 +1,219 @@
+:root {
+  --primary-color: #86D28E;
+  --secondary-color: #1C6636;
+  --neutral-color: #E1F4E2;
+  --background-color: #FFFFFF;
+  --surface-color: #99D8A3;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  width: 100%;
+  overflow: auto;
+}
+.custom-primary-background {
+  background-color: var(--primary-color);
+}
+
+.custom-neutral-text {
+  color: var(--neutral-color);
+}
+
+.custom-secondary-background {
+  background-color: var(--secondary-color);
+}
+
+.custom-surface-background {
+  background-color: var(--surface-color);
+}
+
+.custom-background {
+  background-color: var(--background-color);
+}
+
+.custom-toggler .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba%28255, 255, 255, 1%29' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+.custom-toggler {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-middle {
+  flex: 1;
+  text-align: center;
+}
+
+.navbar-middle-item {
+  display: inline-block;
+}
+
+
+
+.navbar{
+  padding: 30px !important;
+}
+
+.content-container {
+  top: 20px;
+}
+
+.custom-carousel {
+  width: 300px;
+}
+
+.custom-carousel button {
+  width: 20px;
+}
+
+.carousel-indicators {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  margin-right: 15%;
+  margin-bottom: 1rem;
+  margin-left: 15%;
+}
+
+.carousel-indicators button{
+    width: 10px!important;
+}
+
+
+@media (max-width: 575.98px) {
+  .container {
+    padding-top: 1070px;
+  }
+  .signin-card {
+    width: 15rem !important;
+    margin-bottom: 1000px !important;
+
+  }
+  .Add-Card {
+    width: 15rem !important;
+    margin-bottom: 1000px !important;
+  }
+  .createAccount-card {
+    width: 15rem !important;
+    margin-bottom: 900px !important;
+
+  }
+  .goal-form{
+    width: 22rem !important;
+  }
+  .goal-container{
+    margin-top: 0 !important;
+    padding-top: 10px !important;
+  }
+  .profile-card{
+    width: 15rem !important;
+  }
+  .profile-container{
+    padding-bottom: 1000px !important;
+  }
+  .expense-container{
+    padding-bottom: 1000px !important;
+  }
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .container {
+    padding-top: 450px;
+  }
+  .signin-card {
+    width: 23rem !important;
+    margin-bottom: 400px !important;
+  }
+  .Add-Card {
+    width: 23rem !important;
+    margin-bottom: 400px !important;
+  }
+  .createAccount-card {
+    width: 15rem !important;
+    margin-bottom: 300px !important;
+
+  }
+  .goal-form{
+    width: 30rem !important;
+  }
+
+  .goal-container{
+    margin-top: 200px !important;
+  }
+
+  .profile-card{
+    width: 23rem !important;
+    margin-bottom: 400px !important;
+    padding-bottom: 400px !important;
+  }
+  .expense-container{
+    padding-bottom: 400px !important;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .container {
+    padding-top:340px;
+    }
+    .container, .container-md, .container-sm {
+      max-width: 1300px !important;
+  }
+  .signin-card {
+    width: 43rem !important;
+    margin-bottom: 100px !important;}
+  .Add-Card {
+    width: 43rem !important;
+    margin-bottom: 100px !important;
+  }
+  .createAccount-card {
+    width: 15rem !important;
+    margin-bottom: 100px !important;
+  }
+  .goal-form{
+    width: 45rem !important;
+  }
+  .goal-container{
+    margin-top: 0px !important;
+  }
+  .profile-card{
+    width: 43rem !important;
+    padding-bottom: 300px !important;
+  }
+  .expense-container{
+    padding-bottom: 300px !important;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .container {
+    padding-top: 370px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container {
+    padding-top: 180px;
+  }
+  .expense-container{
+    padding-bottom: 0px !important;
+  }
+  .goal-container{
+    margin-top: 300px !important;
+  }
+}
