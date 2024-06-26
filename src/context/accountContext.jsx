@@ -182,6 +182,21 @@ export const AccountProvider = ({ children }) => {
     }
   };
 
+
+  const deleteAccount = async (id) => {
+    try {
+      console.log(id);
+      const response = await api.delete(`/api/account/${id}`);
+      if (response.status === 204) {
+        setAccounts(prev => prev.filter(account => account.id !== id));
+        return true;
+      }
+    } catch (error) {
+      console.error("Failed to delete account", error);
+      return false;
+    }
+  }
+
   return (
     <AccountContext.Provider value={{
       accounts,
@@ -198,6 +213,7 @@ export const AccountProvider = ({ children }) => {
       fetchAccounts,
       addAccount,
       handleSignUp,
+      deleteAccount,
     }}>
       {children}
     </AccountContext.Provider>

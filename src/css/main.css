@@ -125,7 +125,7 @@
     width: 15rem !important;
   }
   .profile-container{
-    padding-bottom: 1000px !important;
+    padding-bottom: 400px !important;
   }
   .expense-container{
     padding-bottom: 1000px !important;
@@ -157,10 +157,8 @@
     margin-top: 200px !important;
   }
 
-  .profile-card{
-    width: 23rem !important;
-    margin-bottom: 400px !important;
-    padding-bottom: 400px !important;
+  .profile-container{
+    padding-bottom: 200px !important;
   }
   .expense-container{
     padding-bottom: 400px !important;
@@ -193,8 +191,9 @@
   }
   .profile-card{
     width: 43rem !important;
-    padding-bottom: 300px !important;
+    padding-bottom: 00px !important;
   }
+
   .expense-container{
     padding-bottom: 300px !important;
   }
@@ -215,5 +214,9 @@
   }
   .goal-container{
     margin-top: 300px !important;
+  }
+  .profile-container{
+    padding-bottom: 0px !important;
+    margin-top: 250px !important;
   }
 }
