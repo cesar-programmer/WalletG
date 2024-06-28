@@ -13,7 +13,7 @@ export default function SavingsGoalsPage() {
         <CCol className='goal-component' md="23">
           <GoalForm />
         </CCol>
-        <CCol md="9" className='mt-3 mb-3 goal-list'>
+        <CCol md="21" className='mt-3 mb-3 goal-list'>
           <GoalsList goals={financeGoals} />
         </CCol>
       </CRow>

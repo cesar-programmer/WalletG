@@ -9,6 +9,9 @@
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
+  "engines": {
+    "node": "20.11.0"
+  },
   "dependencies": {
     "@coreui/coreui": "^5.0.1",
     "@coreui/icons": "^3.0.1",

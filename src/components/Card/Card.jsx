@@ -6,8 +6,6 @@ import '@css/card.css';
 export default function Card ({ account }) {
   let balance = account.balance;
   parseInt(balance);
-  console.log(balance);
-  console.log(account);
   if(!account) {
     return null;
   }

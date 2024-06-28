@@ -1,6 +1,11 @@
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { CButton, CCard, CCardBody, CCardFooter, CCardHeader, CCol, CContainer, CForm, CFormInput, CRow } from '@coreui/react';
+import { 
+  CButton, CCard, CCardBody, CCardFooter, CCardHeader, CCol, CContainer, 
+  CForm, CFormInput, CRow, CInputGroup, CInputGroupText, CAlert
+} from '@coreui/react';
+import CIcon from '@coreui/icons-react';
+import { cilUser, cilEnvelopeClosed, cilLockLocked, cilPencil } from '@coreui/icons';
 import AccountContext from '@context/accountContext';
 
 export default function CreateAccount() {
@@ -9,7 +14,7 @@ export default function CreateAccount() {
     password: '',
     name: '',
     lastName: '',
-    dateRegister: new Date().toISOString().slice(0, 10)  // Añade la fecha de registro, formateada adecuadamente
+    dateRegister: new Date().toISOString().slice(0, 10)
   });
   const { handleSignUp } = useContext(AccountContext);
   const navigate = useNavigate();
@@ -19,7 +24,8 @@ export default function CreateAccount() {
     setAccount(prev => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSignup = async () => {
+  const handleSignup = async (e) => {
+    e.preventDefault();
     const userData = {
       user: {
         email: account.email,
@@ -32,42 +38,99 @@ export default function CreateAccount() {
         date_register: account.dateRegister
       }
     };
-    console.log(userData)
     if (await handleSignUp(userData)) {
-      console.log(userData);
       navigate('/');
     } else {
       setError('Failed to create account. Please check your input and try again.');
     }
   };
-
+{/* <CCard className='createAccount-card' style={{width: '58rem', marginBottom:'23px'}}></CCard> */}
   return (
-    <CContainer fluid>
-      <CRow className="justify-content-center">
-        <CCol md="22">
-          <CCard className='createAccount-card' style={{width: '58rem', marginBottom:'23px'}}>
-            <CCardHeader>
-              <h4>Create Account</h4>
-            </CCardHeader>
-            <CCardBody>
-              {error && <div className="text-danger mb-3">{error}</div>}
-              <CForm>
-                <CFormInput type="email" name="email" placeholder="Enter your email" value={account.email} onChange={handleChange} label="Email address" />
-                <CFormInput type="password" name="password" placeholder="Enter your password" value={account.password} onChange={handleChange} label="Password" />
-                <CFormInput type="text" name="name" placeholder="Enter your first name" value={account.name} onChange={handleChange} label="First Name" />
-                <CFormInput type="text" name="lastName" placeholder="Enter your last name" value={account.lastName} onChange={handleChange} label="Last Name" />
-              </CForm>
-            </CCardBody>
-            <CCardFooter>
-              <CButton color="primary" onClick={handleSignup}>Sign up</CButton>
-              <div className="mt-3 text-center">
-                <span>Already have an account? </span>
-                <CButton color="info" variant="ghost" size="sm" style={{ marginBottom: '0.2rem' }} onClick={() => navigate('/signin')}>Sign in</CButton>
-              </div>
-            </CCardFooter>
-          </CCard>
-        </CCol>
-      </CRow>
-    </CContainer>
-  )
+    
+      <CContainer fluid>
+        <CRow className="justify-content-center">
+          <CCol >
+            <CCard className='createAccount-card'   style={{width: '54rem', marginBottom:'23px'}}>
+              <CCardHeader className="p-4 bg-primary text-white">
+                <h1 className="mb-0">Create Account</h1>
+                <p className="text-white-50 mb-0">Sign up for a new account</p>
+              </CCardHeader>
+              <CCardBody className="p-4">
+                {error && <CAlert color="danger">{error}</CAlert>}
+                <CForm onSubmit={handleSignup}>
+                  <CInputGroup className="mb-3">
+                    <CInputGroupText>
+                      <CIcon icon={cilEnvelopeClosed} />
+                    </CInputGroupText>
+                    <CFormInput
+                      type="email"
+                      name="email"
+                      placeholder="Enter your email"
+                      value={account.email}
+                      onChange={handleChange}
+                      required
+                      autoComplete="email"
+                    />
+                  </CInputGroup>
+                  <CInputGroup className="mb-3">
+                    <CInputGroupText>
+                      <CIcon icon={cilLockLocked} />
+                    </CInputGroupText>
+                    <CFormInput
+                      type="password"
+                      name="password"
+                      placeholder="Enter your password"
+                      value={account.password}
+                      onChange={handleChange}
+                      required
+                      autoComplete="new-password"
+                    />
+                  </CInputGroup>
+                  <CInputGroup className="mb-3">
+                    <CInputGroupText>
+                      <CIcon icon={cilUser} />
+                    </CInputGroupText>
+                    <CFormInput
+                      type="text"
+                      name="name"
+                      placeholder="Enter your first name"
+                      value={account.name}
+                      onChange={handleChange}
+                      required
+                    />
+                  </CInputGroup>
+                  <CInputGroup className="mb-4">
+                    <CInputGroupText>
+                      <CIcon icon={cilPencil} />
+                    </CInputGroupText>
+                    <CFormInput
+                      type="text"
+                      name="lastName"
+                      placeholder="Enter your last name"
+                      value={account.lastName}
+                      onChange={handleChange}
+                      required
+                    />
+                  </CInputGroup>
+                  <CButton color="primary" type="submit" className="w-100">
+                    Create Account
+                  </CButton>
+                </CForm>
+              </CCardBody>
+              <CCardFooter className="p-4 bg-light">
+                <CRow>
+                  <CCol xs={12} className="text-center">
+                    <span>Already have an account? </span>
+                    <CButton color="primary" variant="ghost" onClick={() => navigate('/signin')}>
+                      Sign In
+                    </CButton>
+                  </CCol>
+                </CRow>
+              </CCardFooter>
+            </CCard>
+          </CCol>
+        </CRow>
+      </CContainer>
+    
+  );
 }

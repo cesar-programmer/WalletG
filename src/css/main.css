@@ -125,16 +125,19 @@
     width: 15rem !important;
   }
   .profile-container{
-    padding-bottom: 400px !important;
+    padding-top: 150px !important;
   }
   .expense-container{
-    padding-bottom: 1000px !important;
+    padding-bottom: 700px !important;
+  }
+  .container-income-expense{
+    padding-bottom: 2000px !important;
   }
 }
 
 @media (min-width: 576px) and (max-width: 767.98px) {
   .container {
-    padding-top: 450px;
+    padding-top:600px;
   }
   .signin-card {
     width: 23rem !important;
@@ -158,16 +161,19 @@
   }
 
   .profile-container{
-    padding-bottom: 200px !important;
+    padding-top: 400px !important;
   }
   .expense-container{
-    padding-bottom: 400px !important;
+    padding-bottom: 200px !important;
+  }
+  .container-income-expense{
+    padding-bottom: 500px !important;
   }
 }
 
 @media (min-width: 768px) and (max-width: 991.98px) {
   .container {
-    padding-top:340px;
+    padding-top:540px;
     }
     .container, .container-md, .container-sm {
       max-width: 1300px !important;
@@ -197,17 +203,23 @@
   .expense-container{
     padding-bottom: 300px !important;
   }
+  .container-income-expense{
+    padding-bottom: 500px !important;
+  }
 }
 
 @media (min-width: 992px) and (max-width: 1199.98px) {
   .container {
     padding-top: 370px;
   }
+  .container-income-expense{
+    padding-bottom: 500px !important;
+  }
 }
 
 @media (min-width: 1200px) {
   .container {
-    padding-top: 180px;
+    padding-top: 260px;
   }
   .expense-container{
     padding-bottom: 0px !important;
@@ -218,5 +230,8 @@
   .profile-container{
     padding-bottom: 0px !important;
     margin-top: 250px !important;
+  }
+  .container-income-expense{
+    padding-bottom: 240px !important;
   }
 }

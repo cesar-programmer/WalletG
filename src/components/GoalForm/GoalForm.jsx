@@ -1,11 +1,8 @@
-/* eslint-disable react/prop-types */
 import { useContext, useState } from 'react';
-import { CForm, CFormInput, CFormLabel, CButton, CCard, CCardBody, CCardHeader,CAlert } from '@coreui/react';
-import { cilCheckCircle } from '@coreui/icons';
+import { CForm, CFormInput, CFormLabel, CButton, CCard, CCardBody, CCardHeader, CAlert, CInputGroup, CInputGroupText } from '@coreui/react';
+import { cilCheckCircle, cilDollar, cilCalendar, cilPencil } from '@coreui/icons';
 import CIcon from '@coreui/icons-react';
 import AccountContext from '@context/accountContext';
-
-
 
 export default function GoalForm() {
   const { addFinanceGoal } = useContext(AccountContext);
@@ -31,21 +28,13 @@ export default function GoalForm() {
     e.preventDefault();
     try {
       const result = await addFinanceGoal(goal);
-      console.log("Result of onSaveGoal:", result);
       if (!result) {
         setError('Failed to create goal. Please check your input and try again.');
       } else {
         setAlertMessage('Goal added successfully');
         setShowAlert(true);
-        setTimeout(() => {
-          setShowAlert(false);
-        } , 2000);
-        setGoal({
-          description: '',
-          amount: '',
-          date: '',
-          progress: 0,
-        });
+        setTimeout(() => setShowAlert(false), 3000);
+        setGoal({ description: '', amount: '', date: '', progress: 0 });
       }
     } catch (err) {
       console.error("Error adding goal:", err);
@@ -54,53 +43,64 @@ export default function GoalForm() {
   };
 
   return (
-    <CCard className='goal-form'  style={{width: '58rem', marginBottom:'23px'}}>
-      <CCardHeader>
-        <h4>Set a New Savings Goal</h4>
+    <CCard className='goal-form h-100'>
+      <CCardHeader className="bg-info text-white">
+        <h4 className="mb-0">Set a New Savings Goal</h4>
       </CCardHeader>
-        <CCardBody>
-          {error && <div className="text-danger mb-3">{error}</div>}
-          {showAlert && (
-            <CAlert color="success" className="d-flex align-items-center">
-              <CIcon icon={cilCheckCircle} className="flex-shrink-0 me-2" width={24} height={24} />
-              <div>{alertMessage}</div>
-            </CAlert>
-          )}
+      <CCardBody>
+        {error && <CAlert color="danger">{error}</CAlert>}
+        {showAlert && (
+          <CAlert color="success" className="d-flex align-items-center">
+            <CIcon icon={cilCheckCircle} className="flex-shrink-0 me-2" width={24} height={24} />
+            <div>{alertMessage}</div>
+          </CAlert>
+        )}
         <CForm onSubmit={handleSubmit}>
           <div className="mb-3">
             <CFormLabel htmlFor="description">Description</CFormLabel>
-            <CFormInput
-              type="text"
-              id="description"
-              name="description"
-              value={goal.description}
-              onChange={handleChange}
-              required
-            />
+            <CInputGroup>
+              <CInputGroupText><CIcon icon={cilPencil} /></CInputGroupText>
+              <CFormInput
+                type="text"
+                id="description"
+                name="description"
+                value={goal.description}
+                onChange={handleChange}
+                required
+                placeholder="Enter goal description"
+              />
+            </CInputGroup>
           </div>
           <div className="mb-3">
             <CFormLabel htmlFor="amount">Target Amount ($)</CFormLabel>
-            <CFormInput
-              type="number"
-              id="amount"
-              name="amount"
-              value={goal.amount}
-              onChange={handleChange}
-              required
-            />
+            <CInputGroup>
+              <CInputGroupText><CIcon icon={cilDollar} /></CInputGroupText>
+              <CFormInput
+                type="number"
+                id="amount"
+                name="amount"
+                value={goal.amount}
+                onChange={handleChange}
+                required
+                placeholder="Enter target amount"
+              />
+            </CInputGroup>
           </div>
-          <div className="mb-3">
+          <div className="mb-4">
             <CFormLabel htmlFor="date">Target Date</CFormLabel>
-            <CFormInput
-              type="date"
-              id="date"
-              name="date"
-              value={goal.date}
-              onChange={handleChange}
-              required
-            />
+            <CInputGroup>
+              <CInputGroupText><CIcon icon={cilCalendar} /></CInputGroupText>
+              <CFormInput
+                type="date"
+                id="date"
+                name="date"
+                value={goal.date}
+                onChange={handleChange}
+                required
+              />
+            </CInputGroup>
           </div>
-          <CButton color="primary" type="submit">Create Goal</CButton>
+          <CButton color="primary" type="submit" className="w-100">Create Goal</CButton>
         </CForm>
       </CCardBody>
     </CCard>

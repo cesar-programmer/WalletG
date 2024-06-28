@@ -13,26 +13,36 @@ export const AccountProvider = ({ children }) => {
   const [currentTip, setCurrentTip] = useState(null);
   const [financeGoals, setFinanceGoals] = useState([]);
   const [currentProfile, setCurrentProfile] = useState(() => JSON.parse(localStorage.getItem('profile')) || null);
+  const [currentCard, setCurrentCard] = useState(null);
+  const [transactions, setTransactions] = useState([]);
 
   useEffect(() => {
     if (isLoggedIn) {
       fetchAccounts();
       fetchTips();
       fetchFinanceGoals();
+      fetchTransactions();
+      console.log(transactions)
+      console.log(accounts)
       if (!currentProfile) {
         fetchProfile();
       }
-      console.log(currentProfile);
-      console.log(user);
-      console.log(accounts);
     }
   }, [isLoggedIn, currentProfile]);
+
+  useEffect(() => {
+    if (accounts.length > 0) {
+      setCurrentCard(accounts[0]);
+    } else {
+      setCurrentCard(null);
+    }
+  }, [accounts]);
 
   const fetchProfile = useCallback(async () => {
     try {
       const response = await api.get('/api/users/me/profile/');
       setCurrentProfile(response.data);
-      localStorage.setItem('profile', JSON.stringify(response.data)); // Guardar en localStorage
+      localStorage.setItem('profile', JSON.stringify(response.data));
     } catch (error) {
       console.error("Failed to fetch profile", error);
     }
@@ -63,9 +73,17 @@ export const AccountProvider = ({ children }) => {
     try {
       const response = await api.get('/api/account/');
       setAccounts(response.data);
-      console.log(response, 'response');
     } catch (error) {
       console.error("Failed to fetch accounts", error);
+    }
+  }, []);
+
+  const fetchTransactions = useCallback(async () => {
+    try {
+      const response = await api.get('/api/transactions/list/');
+      setTransactions(response.data);
+    } catch (error) {
+      console.error("Failed to fetch transactions", error);
     }
   }, []);
 
@@ -79,7 +97,6 @@ export const AccountProvider = ({ children }) => {
         date: goalData.date,
         achieved: false,
       };
-      console.log(goalDataJson);
       const response = await api.post('/api/goals/', goalDataJson);
       if (response.status === 201) {
         setFinanceGoals(prev => [...prev, response.data]);
@@ -115,8 +132,7 @@ export const AccountProvider = ({ children }) => {
         Institution: accountData.institution || 'Default Bank',
         number: accountData.cardNumber,
       };
-      console.log(user);
-      console.log(fullAccountData);
+      
       const response = await api.post('/api/account/', fullAccountData);
       if (response.status === 201) {
         setAccounts(prev => [...prev, response.data]);
@@ -137,9 +153,11 @@ export const AccountProvider = ({ children }) => {
         localStorage.setItem('refresh_token', refresh);
         setIsLoggedIn(true);
         fetchProfile();
+        fetchAccounts();
+        fetchFinanceGoals();
+        fetchTransactions();
         const userResponse = await api.get('/api/users/me/');
         if (userResponse.status === 200) {
-          console.log(userResponse.data);
           setUser(userResponse.data);
           localStorage.setItem('isLoggedIn', JSON.stringify(true));
           localStorage.setItem('user', JSON.stringify(userResponse.data));
@@ -166,7 +184,6 @@ export const AccountProvider = ({ children }) => {
 
   const handleSignUp = async (account) => {
     try {
-      console.log(account);
       const response = await axios.post('http://127.0.0.1:8000/api/users/', account);
       if (response.status === 201) {
         setUser(response.data.user);
@@ -182,10 +199,8 @@ export const AccountProvider = ({ children }) => {
     }
   };
 
-
   const deleteAccount = async (id) => {
     try {
-      console.log(id);
       const response = await api.delete(`/api/account/${id}`);
       if (response.status === 204) {
         setAccounts(prev => prev.filter(account => account.id !== id));
@@ -195,11 +210,10 @@ export const AccountProvider = ({ children }) => {
       console.error("Failed to delete account", error);
       return false;
     }
-  }
+  };
 
   const onDeleteGoal = async (id) => {
     try {
-      console.log(id);
       const response = await api.delete(`/api/goals/${id}`);
       if (response.status === 204) {
         setFinanceGoals(prev => prev.filter(goal => goal.ID_goal !== id));
@@ -209,7 +223,31 @@ export const AccountProvider = ({ children }) => {
       console.error("Failed to delete goal", error);
       return false;
     }
-  }
+  };
+
+  const makeTransaction = async (transactionData) => {
+    try {
+      const fullTransactionData = {
+        ID_account: parseInt(transactionData.ID_account, 10), // Convertir a número
+        amount: parseFloat(transactionData.amount), // Convertir a número
+        description: transactionData.description,
+        type: transactionData.type === 'income' ? 3 : 4,
+        date: new Date().toISOString().slice(0, 10),
+      };
+  
+      console.log(fullTransactionData);
+  
+      const response = await api.post('/api/transactions/', fullTransactionData);
+      if (response.status === 201) {
+        setTransactions(prev => [...prev, response.data]);
+        return true;
+      }
+    } catch (error) {
+      console.error("Failed to make transaction", error);
+      return false;
+    }
+  };
+  
 
   return (
     <AccountContext.Provider value={{
@@ -220,6 +258,10 @@ export const AccountProvider = ({ children }) => {
       currentTip,
       currentProfile,
       financeGoals,
+      currentCard,
+      transactions,
+      makeTransaction,
+      setCurrentCard,
       addFinanceGoal,
       updateFinanceGoal,
       handleSignIn,

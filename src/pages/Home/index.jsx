@@ -14,13 +14,11 @@ export default function Home() {
           <IaQA />
         </CCol>
       </CRow>
-
       <CRow className="justify-content-center align-items-center">
         <CCol md={12}>
           <FinancialDashboard />
         </CCol>
       </CRow>
-      
     </CContainer>
   );
 }

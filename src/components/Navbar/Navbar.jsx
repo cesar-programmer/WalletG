@@ -8,7 +8,7 @@ import IaQA from '@components/IaQA/IaQA';
 import AccountContext from '@context/accountContext';
 
 export default function Navbar() {
-  const { isLoggedIn, user, handleSignOut,currentProfile } = useContext(AccountContext);
+  const { isLoggedIn, handleSignOut,currentProfile } = useContext(AccountContext);
   const [visible, setVisible] = useState(false);
 
   return (
@@ -61,6 +61,9 @@ export default function Navbar() {
               )}
               <CNavItem>
                 <CNavLink href="/addCard">Add Card</CNavLink>
+              </CNavItem>
+              <CNavItem>
+                <CNavLink href="/makeTransactions">Make transactions</CNavLink>
               </CNavItem>
               <CNavItem>
                 <CNavLink href="#">Settings</CNavLink>

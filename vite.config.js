@@ -22,4 +22,8 @@ export default defineConfig({
       '@css': new URL('./src/css', import.meta.url).pathname,
     },
   },
+  preview: {
+    port: process.env.PORT || 3000,
+    host: '0.0.0.0'
+  }
 })
