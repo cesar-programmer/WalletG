@@ -1,4 +1,5 @@
 import { useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   CCard,
   CCardHeader,
@@ -17,6 +18,7 @@ import { cilDollar, cilSwapVertical, cilBank } from '@coreui/icons';
 import AccountContext from '@context/accountContext';
 
 export default function CreateTransaction() {
+  const navigate = useNavigate();
   const { accounts, makeTransaction } = useContext(AccountContext);
   const [transactionObject, setTransactionObject] = useState({
     amount: '',
@@ -40,12 +42,7 @@ export default function CreateTransaction() {
       description: transactionObject.description
     };
     if (await makeTransaction(transactionData)) {
-      setTransactionObject({
-        amount: '',
-        type: '',
-        ID_account: '',
-        description: ''
-      });
+      navigate('/');
     } else {
       setError('Failed to create transaction. Please check your input and try again.');
     }

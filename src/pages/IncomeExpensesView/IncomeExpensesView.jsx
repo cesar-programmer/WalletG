@@ -25,7 +25,7 @@ const IncomeExpensesView = () => {
     const incomes = [];
     const expenses = [];
     transactions.forEach(transaction => {
-      if (transaction.type === 3) {
+      if (transaction.type === 1) {
         incomes.push(transaction);
       } else {
         expenses.push(transaction);

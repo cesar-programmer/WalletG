@@ -231,7 +231,7 @@ export const AccountProvider = ({ children }) => {
         ID_account: parseInt(transactionData.ID_account, 10), // Convertir a número
         amount: parseFloat(transactionData.amount), // Convertir a número
         description: transactionData.description,
-        type: transactionData.type === 'income' ? 3 : 4,
+        type: transactionData.type === 'income' ? 1 : 2,
         date: new Date().toISOString().slice(0, 10),
       };
   
@@ -240,6 +240,7 @@ export const AccountProvider = ({ children }) => {
       const response = await api.post('/api/transactions/', fullTransactionData);
       if (response.status === 201) {
         setTransactions(prev => [...prev, response.data]);
+        fetchAccounts();
         return true;
       }
     } catch (error) {

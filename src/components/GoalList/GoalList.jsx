@@ -41,11 +41,11 @@ export default function GoalsList({ goals }) {
                 <p><strong>Amount:</strong> <CBadge color="info">${goal.amount}</CBadge></p>
                 <p><strong>Date:</strong> {new Date(goal.date).toLocaleDateString()}</p>
                 <p><strong>Progress:</strong></p>
-                <CProgress value={goal.progress} className="mb-3">
-                  {goal.progress}%
+                <CProgress value={goal.progress_percentage} className="mb-3">
+                  {goal.progress_percentage}%
                 </CProgress>
-                <CBadge color={goal.progress === 100 ? "success" : "warning"}>
-                  {goal.progress === 100 ? "Completed" : "In Progress"}
+                <CBadge color={goal.progress_percentage >= 100 ? "success" : "warning"}>
+                  {goal.progress_percentage >= 100 ? "Completed" : "In Progress"}
                 </CBadge>
               </CCardBody>
             </CCard>

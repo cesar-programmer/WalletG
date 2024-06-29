@@ -19,11 +19,11 @@ export default function FinancialDashboard() {
   console.log("Transactions:", transactions);
 
   const monthlyIncome = transactions
-    .filter(transaction => transaction.type === 3)
+    .filter(transaction => transaction.type === 1)
     .reduce((sum, transaction) => sum + Number(transaction.amount), 0);
 
   const monthlyExpenses = transactions
-    .filter(transaction => transaction.type === 4) // Filtra las transacciones de tipo "expenses"
+    .filter(transaction => transaction.type === 2) // Filtra las transacciones de tipo "expenses"
     .reduce((sum, transaction) => sum + Number(transaction.amount), 0);
 
   const savingsGoal = financeGoals.length > 0 ? financeGoals[0].amount : 0;
