@@ -191,6 +191,9 @@ export const AccountProvider = ({ children }) => {
         localStorage.setItem('isLoggedIn', JSON.stringify(true));
         localStorage.setItem('user', JSON.stringify(response.data.user));
         fetchProfile();
+        fetchAccounts();
+        fetchFinanceGoals();
+        fetchTransactions();
         return true;
       }
     } catch (error) {
