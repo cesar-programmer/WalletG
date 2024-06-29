@@ -184,7 +184,7 @@ export const AccountProvider = ({ children }) => {
 
   const handleSignUp = async (account) => {
     try {
-      const response = await axios.post('http://127.0.0.1:8000/api/users/', account);
+      const response = await axios.post('https://walletgbackend-ff8754e83cc7.herokuapp.com/api/users/', account);
       if (response.status === 201) {
         setUser(response.data.user);
         setIsLoggedIn(true);
