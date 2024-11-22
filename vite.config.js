@@ -1,9 +1,15 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react-swc'
+/* eslint-disable no-undef */
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react-swc';
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
+  test: {
+    globals: true, // Permitir el uso de variables globales como `describe` y `test`
+    environment: "jsdom", // Simular un entorno de navegador
+    setupFiles: "./setupTests.js", // Configuración global de pruebas
+  },
   resolve: {
     alias: {
       '@src': new URL('./src', import.meta.url).pathname,
@@ -24,6 +30,6 @@ export default defineConfig({
   },
   preview: {
     port: process.env.PORT || 3000,
-    host: '0.0.0.0'
-  }
-})
+    host: '0.0.0.0',
+  },
+});

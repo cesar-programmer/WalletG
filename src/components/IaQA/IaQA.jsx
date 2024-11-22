@@ -16,33 +16,33 @@ export default function App() {
     setUserQuestion(e.target.value);
   };
 
-  // const handleAskQuestion = async () => {
-  //   if (!userQuestion.trim()) return;
+  const handleAskQuestion = async () => {
+    if (!userQuestion.trim()) return;
     
-  //   setIsLoading(true);
-  //   try {
-  //     const response = await fetch('http://localhost:5000/chat', {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json'
-  //       },
-  //       body: JSON.stringify({ message: userQuestion })
-  //     });
+    setIsLoading(true);
+    try {
+      const response = await fetch('http://localhost:5000/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ message: userQuestion })
+      });
 
-  //     if (!response.ok) {
-  //       throw new Error(response.statusText);
-  //     }
+      if (!response.ok) {
+        throw new Error(response.statusText);
+      }
 
-  //     const data = await response.json();
-  //     setChatResponse(data.result);
-  //     setSourceDocuments(data.source_documents || []);
-  //   } catch (error) {
-  //     console.error("Error with the request:", error);
-  //     setChatResponse("Sorry, there was an error processing your request.");
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // };
+      const data = await response.json();
+      setChatResponse(data.result);
+      setSourceDocuments(data.source_documents || []);
+    } catch (error) {
+      console.error("Error with the request:", error);
+      setChatResponse("Sorry, there was an error processing your request.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <>
@@ -94,12 +94,12 @@ export default function App() {
                   aria-label="Ask me a question"
                   onChange={handleQuestionChange}
                   value={userQuestion}
-                  // onKeyPress={(e) => e.key === 'Enter' && handleAskQuestion()}
+                  onKeyPress={(e) => e.key === 'Enter' && handleAskQuestion()}
                 />
               </CCol>
               <CCol xs="auto">
                 <CButton 
-                  // onClick={handleAskQuestion} 
+                  onClick={handleAskQuestion} 
                   color="primary"
                   disabled={isLoading}
                 >

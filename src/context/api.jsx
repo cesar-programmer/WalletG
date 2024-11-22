@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Crear una instancia de axios
 const api = axios.create({
-  baseURL: 'https://walletgbackend-ff8754e83cc7.herokuapp.com',
+  baseURL: 'http://127.0.0.1:8000',
 });
 
 // Añadir un interceptor de solicitud para añadir el token a cada solicitud

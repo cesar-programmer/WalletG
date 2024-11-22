@@ -44,7 +44,7 @@ export const AccountProvider = ({ children }) => {
       setCurrentProfile(response.data);
       localStorage.setItem('profile', JSON.stringify(response.data));
     } catch (error) {
-      console.error("Failed to fetch profile", error);
+      console.error('Failed to fetch profile', error);
     }
   }, []);
 
@@ -152,15 +152,23 @@ export const AccountProvider = ({ children }) => {
         localStorage.setItem('access_token', access);
         localStorage.setItem('refresh_token', refresh);
         setIsLoggedIn(true);
-        fetchProfile();
-        fetchAccounts();
-        fetchFinanceGoals();
-        fetchTransactions();
+        
+        // Obtener datos del usuario
         const userResponse = await api.get('/api/users/me/');
         if (userResponse.status === 200) {
           setUser(userResponse.data);
           localStorage.setItem('isLoggedIn', JSON.stringify(true));
           localStorage.setItem('user', JSON.stringify(userResponse.data));
+          
+          // Cargar todos los datos del usuario
+          await Promise.all([
+            fetchProfile(),
+            fetchAccounts(),
+            fetchFinanceGoals(),
+            fetchTransactions(),
+            fetchTips()
+          ]);
+          
           return true;
         }
       }
@@ -169,7 +177,6 @@ export const AccountProvider = ({ children }) => {
       return false;
     }
   };
-
   const handleSignOut = () => {
     setIsLoggedIn(false);
     setUser({});
@@ -184,16 +191,28 @@ export const AccountProvider = ({ children }) => {
 
   const handleSignUp = async (account) => {
     try {
-      const response = await axios.post('https://walletgbackend-ff8754e83cc7.herokuapp.com/api/users/', account);
+      const response = await axios.post('http://127.0.0.1:8000/api/users/', account);
       if (response.status === 201) {
         setUser(response.data.user);
         setIsLoggedIn(true);
         localStorage.setItem('isLoggedIn', JSON.stringify(true));
         localStorage.setItem('user', JSON.stringify(response.data.user));
-        fetchProfile();
-        fetchAccounts();
-        fetchFinanceGoals();
-        fetchTransactions();
+        
+        // Configurar token de acceso
+        if (response.data.token) {
+          localStorage.setItem('access_token', response.data.token.access);
+          localStorage.setItem('refresh_token', response.data.token.refresh);
+        }
+        
+        // Cargar todos los datos del usuario
+        await Promise.all([
+          fetchProfile(),
+          fetchAccounts(),
+          fetchFinanceGoals(),
+          fetchTransactions(),
+          fetchTips()
+        ]);
+        
         return true;
       }
     } catch (error) {
