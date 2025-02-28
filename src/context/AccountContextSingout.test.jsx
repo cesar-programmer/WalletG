@@ -21,7 +21,6 @@ describe("AccountProvider - handleSignOut", () => {
     localStorage.setItem("user", JSON.stringify({ id: 1, name: "Test User" }));
     localStorage.setItem("profile", JSON.stringify({ id: 1, name: "Profile Test" }));
 
-    // Renderizar el proveedor del contexto con el componente de prueba
     const { getByTestId } = render(
       <AccountProvider>
         <TestComponent />
@@ -32,7 +31,6 @@ describe("AccountProvider - handleSignOut", () => {
     const button = getByTestId("signout-button");
     fireEvent.click(button);
 
-    // Verificar que los valores del localStorage fueron eliminados
     expect(localStorage.getItem("isLoggedIn")).toBeNull();
     expect(localStorage.getItem("user")).toBeNull();
     expect(localStorage.getItem("profile")).toBeNull();

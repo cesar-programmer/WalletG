@@ -45,6 +45,7 @@ export const AccountProvider = ({ children }) => {
       localStorage.setItem('profile', JSON.stringify(response.data));
     } catch (error) {
       console.error('Failed to fetch profile', error);
+      setCurrentProfile(null); 
     }
   }, []);
 
@@ -294,6 +295,9 @@ export const AccountProvider = ({ children }) => {
       handleSignUp,
       deleteAccount,
       onDeleteGoal,
+      fetchTips,
+      fetchProfile,
+      fetchFinanceGoals,
     }}>
       {children}
     </AccountContext.Provider>
